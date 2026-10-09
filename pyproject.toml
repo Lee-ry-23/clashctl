@@ -1,0 +1,67 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "clashctl"
+version = "0.1.0"
+description = "Inspect Clash Verge, benchmark nodes in an isolated Mihomo, and select a measured winner."
+readme = "README.md"
+requires-python = ">=3.12"
+keywords = ["clash", "mihomo", "clash-verge", "cli", "proxy", "benchmark"]
+classifiers = [
+  "Environment :: Console",
+  "Operating System :: MacOS :: MacOS X",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Internet :: Proxy Servers",
+]
+dependencies = [
+  "click>=8.1,<9",
+  "httpx>=0.28,<0.29",
+  "prompt-toolkit>=3.0.52,<4",
+  "PyYAML>=6.0,<7",
+  "rich>=13.9,<15",
+]
+
+[project.scripts]
+clashctl = "clashctl.cli:main"
+
+[project.urls]
+Repository = "https://github.com/Lee-ry-23/clashctl"
+Issues = "https://github.com/Lee-ry-23/clashctl/issues"
+
+[dependency-groups]
+dev = [
+  "mypy>=1.15,<2",
+  "pyte>=0.8,<0.9",
+  "ruff>=0.11,<1",
+  "types-PyYAML>=6.0",
+]
+
+[tool.hatch.build.targets.wheel]
+include = ["/src/clashctl/*.py"]
+sources = ["src"]
+dev-mode-dirs = ["src"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/src/clashctl/*.py",
+  "/tests/*.py",
+  "/README.md",
+  "/pyproject.toml",
+  "/uv.lock",
+  "/.gitignore",
+]
+
+[tool.mypy]
+strict = true
+files = ["src", "tests"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
